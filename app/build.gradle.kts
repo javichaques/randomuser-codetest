@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -22,10 +24,64 @@ android {
         versionName = "1.0"
     }
 
+    signingConfigs {
+        val localProperties = gradleLocalProperties(rootDir, providers)
+        val keystoreFile = file("$rootDir/credentials/keystore.jks")
+        val keystorePassword = localProperties.getProperty("keystore.password")
+
+        named("debug") {
+            storeFile = keystoreFile
+            storePassword = keystorePassword
+            keyAlias = localProperties.getProperty("keystore.debug.alias")
+            keyPassword = localProperties.getProperty("keystore.debug.password")
+        }
+
+        create("release") {
+            storeFile = keystoreFile
+            storePassword = keystorePassword
+            keyAlias = localProperties.getProperty("keystore.release.alias")
+            keyPassword = localProperties.getProperty("keystore.release.password")
+        }
+    }
+
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isShrinkResources = false
+            isDebuggable = true
+
+            signingConfig = signingConfigs.getByName("debug")
+
+            manifestPlaceholders["loggingEnabled"] = "false"
+        }
+
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = false
+
+            signingConfig = signingConfigs.getByName("release")
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
+
+            manifestPlaceholders["loggingEnabled"] = "true"
+        }
+    }
+
+    flavorDimensions.add("environment")
+
+    productFlavors {
+        create("development") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+        }
+
+        create("production") {
+            dimension = "environment"
         }
     }
 
