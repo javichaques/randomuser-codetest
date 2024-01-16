@@ -28,5 +28,7 @@ rootProject.name = "Random User"
 include(":app")
 include(":core:common")
 include(":core:data")
+include(":core:domain")
 include(":core:network")
 include(":core:model")
+include(":core:testing")
