@@ -16,7 +16,7 @@ object BuildConstants {
         }
 
         object Api {
-            const val URL = "https://backend.trexx.dio.dekaside.com/"
+            const val URL = ""
         }
     }
 

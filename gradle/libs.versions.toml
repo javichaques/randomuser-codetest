@@ -140,3 +140,7 @@ junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref 
 # Mockito
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+
+# Build-logic
+android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "plugin-android" }
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "plugin-kotlin" }

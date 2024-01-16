@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.junit)
     alias(libs.plugins.hilt)
+    id("com.javichaques.android.library.flavors")
 }
 
 android {
@@ -30,7 +31,7 @@ android {
 
     productFlavors {
         val development by getting {
-            buildConfigField("String", "API_URL", "\"${BuildConstants.Staging.Api.URL}\"")
+            buildConfigField("String", "API_URL", "\"${BuildConstants.Development.Api.URL}\"")
         }
 
         val production by getting {
@@ -60,7 +61,4 @@ dependencies {
     implementation(libs.arrow.retrofit)
 
     implementation(libs.timber)
-
-    implementation(platform(libs.sentry.bom))
-    implementation(libs.sentry.okHttp)
 }
