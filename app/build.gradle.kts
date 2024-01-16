@@ -13,34 +13,36 @@ plugins {
 }
 
 android {
-    namespace = "com.javichaques.randomuser"
-    compileSdk = 34
+    namespace = BuildConstants.APPLICATION_ID
+    compileSdk = BuildConstants.Sdk.COMPILE_SDK_VERSION
 
     defaultConfig {
-        applicationId = "com.javichaques.randomuser"
-        minSdk = 29
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = BuildConstants.APPLICATION_ID
+
+        minSdk = BuildConstants.Sdk.MIN_SDK_VERSION
+        targetSdk = BuildConstants.Sdk.TARGET_SDK_VERSION
+
+        versionCode = BuildConstants.VERSION_CODE
+        versionName = BuildConstants.VERSION_NAME
     }
 
     signingConfigs {
         val localProperties = gradleLocalProperties(rootDir, providers)
         val keystoreFile = file("$rootDir/credentials/keystore.jks")
-        val keystorePassword = localProperties.getProperty("keystore.password")
+        val keystorePassword = localProperties.getProperty("keystore.password") ?: Credentials.Keystore.password
 
         named("debug") {
             storeFile = keystoreFile
             storePassword = keystorePassword
-            keyAlias = localProperties.getProperty("keystore.debug.alias")
-            keyPassword = localProperties.getProperty("keystore.debug.password")
+            keyAlias = localProperties.getProperty("keystore.debug.alias") ?: Credentials.Keystore.Debug.alias
+            keyPassword = localProperties.getProperty("keystore.debug.password") ?: Credentials.Keystore.Debug.password
         }
 
         create("release") {
             storeFile = keystoreFile
             storePassword = keystorePassword
-            keyAlias = localProperties.getProperty("keystore.release.alias")
-            keyPassword = localProperties.getProperty("keystore.release.password")
+            keyAlias = localProperties.getProperty("keystore.release.alias") ?: Credentials.Keystore.Release.alias
+            keyPassword = localProperties.getProperty("keystore.release.password") ?: Credentials.Keystore.Release.password
         }
     }
 

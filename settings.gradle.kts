@@ -20,4 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Random User"
+
 include(":app")
+include(":network")
