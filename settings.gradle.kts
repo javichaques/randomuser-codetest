@@ -28,3 +28,4 @@ rootProject.name = "Random User"
 include(":app")
 include(":core:common")
 include(":core:network")
+include(":core:model")

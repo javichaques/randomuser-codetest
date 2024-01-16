@@ -111,7 +111,7 @@ dependencies {
 //    implementation(project(":core:ui"))
 //    implementation(project(":core:designsystem"))
 //    implementation(project(":core:domain"))
-//    implementation(project(":core:model"))
+    implementation(project(":core:model"))
 //    testImplementation(project(":core:testing"))
 
     implementation(libs.hilt.android)
