@@ -34,3 +34,5 @@ include(":core:network")
 include(":core:model")
 include(":core:testing")
 include(":core:ui")
+
+include(":feature:users")

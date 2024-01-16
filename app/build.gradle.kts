@@ -114,6 +114,8 @@ dependencies {
     implementation(project(":core:model"))
     testImplementation(project(":core:testing"))
 
+    implementation(project(":feature:users"))
+
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
@@ -140,7 +142,7 @@ dependencies {
 //    implementation(libs.arrow.core)
 //    implementation(libs.arrow.retrofit)
 
-//    implementation(libs.coil.core)
+    implementation(libs.coil.core)
 
     debugImplementation(libs.leakcanary)
 }
