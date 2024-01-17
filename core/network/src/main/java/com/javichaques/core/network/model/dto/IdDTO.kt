@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class IdDTO(
     @SerialName("name") val name: String,
-    @SerialName("value") val value: String,
+    @SerialName("value") val value: String?,
 ) {
     fun toDomain() =
         IdDO(

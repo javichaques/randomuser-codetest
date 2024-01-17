@@ -11,12 +11,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import okhttp3.Authenticator
 import okhttp3.Call
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -36,12 +37,13 @@ object NetworkProvidersModule {
 
     @Provides
     @Singleton
-    fun providesOkHttpCallFactory(authenticator: Authenticator): Call.Factory =
+    fun providesOkHttpCallFactory(interceptor: Interceptor): Call.Factory =
         OkHttpClient.Builder()
             .callTimeout(Constants.DEFAULT_API_TIMEOUT, TimeUnit.SECONDS)
             .connectTimeout(Constants.DEFAULT_API_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(Constants.DEFAULT_API_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(Constants.DEFAULT_API_TIMEOUT, TimeUnit.SECONDS)
+            .addInterceptor(interceptor)
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
                     if (BuildConfig.DEBUG) {
@@ -49,7 +51,6 @@ object NetworkProvidersModule {
                     }
                 },
             )
-            .authenticator(authenticator)
             .build()
 
     @Provides
@@ -65,6 +66,17 @@ object NetworkProvidersModule {
                 json.asConverterFactory("application/json".toMediaType()),
             ).build()
     }
+
+    @Provides
+    @Singleton
+    fun providesInterceptor(): Interceptor =
+        Interceptor {
+            val request = it.request()
+            val builder = request.newBuilder()
+
+            builder.header(Constants.HEADER_ACCEPT_LANGUAGE, Locale.getDefault().toLanguageTag())
+            it.proceed(builder.build())
+        }
 
     @Provides
     @Singleton

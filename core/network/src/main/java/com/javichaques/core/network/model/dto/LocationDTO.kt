@@ -10,7 +10,7 @@ data class LocationDTO(
     @SerialName("city") val city: String,
     @SerialName("state") val state: String,
     @SerialName("country") val country: String,
-    @SerialName("postcode") val postcode: Int,
+    @SerialName("postcode") val postcode: String,
     @SerialName("coordinates") val coordinates: CoordinatesDTO,
     @SerialName("timezone") val timezone: TimezoneDTO,
 ) {
