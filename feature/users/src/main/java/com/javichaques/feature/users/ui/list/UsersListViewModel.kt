@@ -49,6 +49,15 @@ class UsersListViewModel
                 .cachedIn(viewModelScope)
         }
 
+        fun onUserClick(user: UserDO) =
+            viewModelScope.launch {
+                _uiEvent.emit(
+                    UsersListUiEvent.NavigateToUserDetail(
+                        user = user,
+                    ),
+                )
+            }
+
         fun onMoreOptionsClick() {
             // TODO To be implemented
         }
@@ -59,4 +68,6 @@ data class UsersListUiState(
     val users: Flow<PagingData<UserDO>> = emptyFlow(),
 )
 
-sealed interface UsersListUiEvent
+sealed interface UsersListUiEvent {
+    data class NavigateToUserDetail(val user: UserDO) : UsersListUiEvent
+}

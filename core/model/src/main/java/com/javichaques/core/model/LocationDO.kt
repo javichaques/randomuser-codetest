@@ -1,5 +1,9 @@
 package com.javichaques.core.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class LocationDO(
     val street: StreetDO,
     val city: String,
@@ -8,4 +12,4 @@ data class LocationDO(
     val postcode: String,
     val coordinates: CoordinatesDO,
     val timezone: TimezoneDO,
-)
+) : Parcelable

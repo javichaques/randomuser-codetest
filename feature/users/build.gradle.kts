@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtimeCompose)
     implementation(libs.androidx.lifecycle.viewModelCompose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.constraintlayout)
 
     implementation(libs.destinations.core)
     ksp(libs.destinations.ksp)

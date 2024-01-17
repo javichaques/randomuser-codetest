@@ -1,5 +1,9 @@
 package com.javichaques.core.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class UserDO(
     val gender: String,
     val name: NameDO,
@@ -13,4 +17,4 @@ data class UserDO(
     val id: IdDO,
     val picture: PictureDO,
     val nat: String,
-)
+) : Parcelable

@@ -1,6 +1,6 @@
 package com.javichaques.randomuser.navigation
 
-import com.javichaques.feature.users.ui.list.UsersNavGraph
+import com.javichaques.feature.users.ui.UsersNavGraph
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 

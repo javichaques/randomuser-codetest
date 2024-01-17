@@ -21,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,6 +50,7 @@ import com.javichaques.core.ui.scaffold.RUScaffold
 import com.javichaques.feature.users.navigation.UsersNavGraph
 import com.javichaques.feature.users.navigation.UsersNavigator
 import com.ramcosta.composedestinations.annotation.Destination
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @UsersNavGraph(start = true)
@@ -57,6 +59,14 @@ import com.ramcosta.composedestinations.annotation.Destination
 internal fun UsersListScreen(navigator: UsersNavigator) {
     val viewModel: UsersListViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEvent.collectLatest {
+            when (it) {
+                is UsersListUiEvent.NavigateToUserDetail -> navigator.navigateToUserDetail(it.user)
+            }
+        }
+    }
 
     RUScaffold(
         error = state.error,
@@ -83,6 +93,7 @@ internal fun UsersListScreen(navigator: UsersNavigator) {
 
         UsersListScreenContent(
             state = state,
+            onUserClick = viewModel::onUserClick,
         )
     }
 }
