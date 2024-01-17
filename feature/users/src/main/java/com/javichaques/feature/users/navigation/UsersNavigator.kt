@@ -1,3 +1,5 @@
 package com.javichaques.feature.users.navigation
 
-interface UsersNavigator
+interface UsersNavigator {
+    fun navigateUp()
+}

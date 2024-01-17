@@ -5,4 +5,8 @@ import com.javichaques.feature.users.navigation.UsersNavigator
 
 class CommonNavGraphNavigator(
     private val navController: NavController,
-) : UsersNavigator
+) : UsersNavigator {
+    override fun navigateUp() {
+        navController.navigateUp()
+    }
+}

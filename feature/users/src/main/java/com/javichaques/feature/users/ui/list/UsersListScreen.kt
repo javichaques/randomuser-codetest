@@ -3,14 +3,18 @@ package com.javichaques.feature.users.ui.list
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.javichaques.core.designsystem.R
+import com.javichaques.core.designsystem.component.RUTopAppBar
 import com.javichaques.core.designsystem.theme.RUTheme
 import com.javichaques.core.designsystem.util.DevicePreviews
 import com.javichaques.core.model.UserDO
@@ -20,6 +24,7 @@ import com.javichaques.feature.users.navigation.UsersNavGraph
 import com.javichaques.feature.users.navigation.UsersNavigator
 import com.ramcosta.composedestinations.annotation.Destination
 
+@OptIn(ExperimentalMaterial3Api::class)
 @UsersNavGraph(start = true)
 @Destination
 @Composable
@@ -30,6 +35,11 @@ internal fun UsersListScreen(navigator: UsersNavigator) {
     RUScaffold(
         error = state.error,
     ) {
+        RUTopAppBar(
+            title = stringResource(id = R.string.contacts),
+            onNavigationClick = navigator::navigateUp,
+        )
+
         UsersListScreenContent(
             state = state,
         )
