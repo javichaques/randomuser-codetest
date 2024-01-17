@@ -2,12 +2,11 @@
 
 package com.javichaques.core.designsystem.component
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,7 +18,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -31,9 +30,11 @@ import com.javichaques.core.designsystem.theme.RUColor
 import com.javichaques.core.designsystem.theme.RUTheme
 import com.javichaques.core.designsystem.util.DevicePreviews
 
-enum class NavigationType(val icon: ImageVector? = null) {
+enum class NavigationType(
+    @DrawableRes val icon: Int? = null,
+) {
     None,
-    Back(Icons.AutoMirrored.Outlined.ArrowBack),
+    Back(R.drawable.ic_back),
 }
 
 enum class BackgroundType {
@@ -71,7 +72,7 @@ fun RUTopAppBar(
     TopAppBar(
         title = {
             Text(
-                text = title,
+                text = title.uppercase(),
                 fontFamily = Oswald,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
@@ -89,7 +90,7 @@ fun RUTopAppBar(
                         ),
                 ) {
                     Icon(
-                        imageVector = it,
+                        painter = painterResource(id = it),
                         contentDescription = null,
                     )
                 }

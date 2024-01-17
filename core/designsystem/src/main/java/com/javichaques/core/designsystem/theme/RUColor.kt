@@ -28,6 +28,8 @@ object RUColor {
         val Light = Color(0xFFE7E7E7)
         val Medium = Color(0xFFC4C4C4)
         val Dim = Color(0xFF707070)
+
+        val Email = Color(0xFF8E8E93) // TODO To be defined
     }
 }
 
@@ -80,5 +82,6 @@ internal fun TextColorsPreview() {
         ColorBox(color = RUColor.Grey.Light, "Light")
         ColorBox(color = RUColor.Grey.Medium, "Medium")
         ColorBox(color = RUColor.Grey.Dim, "Dim")
+        ColorBox(color = RUColor.Grey.Email, "Email")
     }
 }

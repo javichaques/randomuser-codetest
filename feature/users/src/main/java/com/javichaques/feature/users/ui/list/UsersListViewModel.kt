@@ -48,6 +48,10 @@ class UsersListViewModel
             return getUsersUseCase()
                 .cachedIn(viewModelScope)
         }
+
+        fun onMoreOptionsClick() {
+            // TODO To be implemented
+        }
     }
 
 data class UsersListUiState(
