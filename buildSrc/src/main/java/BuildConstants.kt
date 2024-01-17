@@ -16,7 +16,7 @@ object BuildConstants {
         }
 
         object Api {
-            const val URL = ""
+            const val URL = "https://randomuser.me/api/"
         }
     }
 
@@ -26,7 +26,7 @@ object BuildConstants {
         }
 
         object Api {
-            const val URL = ""
+            const val URL = "https://randomuser.me/api/"
         }
     }
 }
