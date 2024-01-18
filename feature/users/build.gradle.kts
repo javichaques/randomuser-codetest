@@ -69,4 +69,6 @@ dependencies {
     implementation(platform(libs.arrow.bom))
     implementation(libs.arrow.core)
     implementation(libs.arrow.retrofit)
+
+    implementation(libs.maps)
 }

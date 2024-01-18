@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -26,12 +27,15 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,6 +46,13 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapProperties
+import com.google.maps.android.compose.MapUiSettings
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 import com.javichaques.core.designsystem.R
 import com.javichaques.core.designsystem.component.BackgroundType
 import com.javichaques.core.designsystem.component.RUTopAppBar
@@ -49,8 +60,10 @@ import com.javichaques.core.designsystem.theme.OpenSans
 import com.javichaques.core.designsystem.theme.RUColor
 import com.javichaques.core.designsystem.theme.RUTheme
 import com.javichaques.core.designsystem.util.DevicePreviews
+import com.javichaques.core.model.CoordinatesDO
 import com.javichaques.core.model.Gender
 import com.javichaques.core.model.UserDO
+import com.javichaques.core.ui.maps.MapMarker
 import com.javichaques.core.ui.transitions.DetailTransitions
 import com.javichaques.core.ui.utils.DateTimeFormat
 import com.javichaques.core.ui.utils.toString
@@ -228,6 +241,18 @@ internal fun UserDetailData(
                 icon = painterResource(id = R.drawable.ic_phone),
             )
         }
+
+        if (state.coordinates != null) {
+            UserLocation(
+                coordinates = state.coordinates,
+                modifier =
+                    Modifier.padding(
+                        top = 16.dp,
+                        start = 72.dp,
+                        end = 20.dp,
+                    ),
+            )
+        }
     }
 }
 
@@ -329,6 +354,65 @@ internal fun UserActions(
     }
 }
 
+@Composable
+internal fun UserLocation(
+    modifier: Modifier = Modifier,
+    coordinates: CoordinatesDO,
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = modifier.fillMaxWidth(),
+    ) {
+        Text(
+            text = stringResource(id = R.string.address),
+            color = RUColor.Grey.Dim,
+            fontFamily = OpenSans,
+            fontWeight = FontWeight.Normal,
+            fontSize = 11.sp,
+            lineHeight = 14.sp,
+        )
+
+        // TODO Change to google maps lite mode
+        val uiSettings by remember {
+            mutableStateOf(
+                MapUiSettings(
+                    compassEnabled = false,
+                    indoorLevelPickerEnabled = false,
+                    mapToolbarEnabled = false,
+                    myLocationButtonEnabled = false,
+                    rotationGesturesEnabled = false,
+                    scrollGesturesEnabled = false,
+                    scrollGesturesEnabledDuringRotateOrZoom = false,
+                    tiltGesturesEnabled = false,
+                    zoomControlsEnabled = false,
+                    zoomGesturesEnabled = false,
+                ),
+            )
+        }
+        MapProperties()
+        val location = LatLng(coordinates.latitude, coordinates.longitude)
+        val cameraPositionState =
+            rememberCameraPositionState {
+                position = CameraPosition.fromLatLngZoom(location, 9f)
+            }
+
+        GoogleMap(
+            cameraPositionState = cameraPositionState,
+            uiSettings = uiSettings,
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(150.dp),
+        ) {
+            MapMarker(
+                context = LocalContext.current,
+                state = MarkerState(position = location),
+                iconResourceId = R.drawable.ic_marker,
+            )
+        }
+    }
+}
+
 @DevicePreviews
 @Composable
 internal fun UserDetailScreenContentPreview() {
@@ -364,5 +448,19 @@ internal fun DetailItemPreview() {
 internal fun UserActionsPreview() {
     RUTheme {
         UserActions()
+    }
+}
+
+@DevicePreviews
+@Composable
+internal fun UserLocationPreview() {
+    RUTheme {
+        UserLocation(
+            coordinates =
+                CoordinatesDO(
+                    latitude = 55.1645,
+                    longitude = -100.2445,
+                ),
+        )
     }
 }

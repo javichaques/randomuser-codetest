@@ -12,7 +12,7 @@ object BuildConstants {
 
     object Development {
         object Firebase {
-            const val APP_ID = ""
+            const val APP_ID = "1:172920122945:android:e1837ab3a8a7277eeb20c0"
         }
 
         object Api {
@@ -22,7 +22,7 @@ object BuildConstants {
 
     object Production {
         object Firebase {
-            const val APP_ID = ""
+            const val APP_ID = "1:172920122945:android:b22d4f693fcd0a34eb20c0"
         }
 
         object Api {

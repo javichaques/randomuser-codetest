@@ -2,6 +2,7 @@ package com.javichaques.feature.users.ui.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.javichaques.core.model.CoordinatesDO
 import com.javichaques.core.model.Gender
 import com.javichaques.core.model.UserDO
 import com.javichaques.feature.users.ui.navArgs
@@ -43,6 +44,7 @@ class UserDetailViewModel
                     gender = user.gender,
                     registeredDate = user.registered.date,
                     phone = user.phone,
+                    coordinates = user.location.coordinates,
                 )
             }
         }
@@ -60,6 +62,7 @@ data class UserDetailUiState(
     val gender: Gender? = null,
     val registeredDate: ZonedDateTime? = null,
     val phone: String = "",
+    val coordinates: CoordinatesDO? = null,
 )
 
 sealed interface UserDetailUiEvent

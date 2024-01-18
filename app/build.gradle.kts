@@ -7,8 +7,8 @@ plugins {
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.junit)
     alias(libs.plugins.hilt)
-//    alias(libs.plugins.google.services)
-//    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 //    alias(libs.plugins.firebase.appdistribution)
 }
 
@@ -133,13 +133,9 @@ dependencies {
 
     implementation(libs.timber)
 
-//    implementation(platform(libs.firebase.bom))
-//    implementation(libs.firebase.analytics)
-//    implementation(libs.firebase.crashlytics)
-
-//    implementation(platform(libs.arrow.bom))
-//    implementation(libs.arrow.core)
-//    implementation(libs.arrow.retrofit)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
     implementation(libs.coil.core)
 

@@ -61,4 +61,6 @@ dependencies {
     api(libs.destinations.core)
     api(libs.destinations.animations)
     ksp(libs.destinations.ksp)
+
+    api(libs.maps)
 }
