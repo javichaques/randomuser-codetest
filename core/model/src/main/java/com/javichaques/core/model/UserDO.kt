@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserDO(
-    val gender: String,
+    val gender: Gender,
     val name: NameDO,
     val location: LocationDO,
     val email: String,

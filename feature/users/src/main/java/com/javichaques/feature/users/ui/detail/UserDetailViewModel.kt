@@ -2,6 +2,7 @@ package com.javichaques.feature.users.ui.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.javichaques.core.model.Gender
 import com.javichaques.core.model.UserDO
 import com.javichaques.feature.users.ui.navArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,6 +37,12 @@ class UserDetailViewModel
             _uiState.update {
                 it.copy(
                     toolbarTitle = user.name.getFullName(),
+                    userImage = user.picture.large,
+                    name = user.name.getFullName(),
+                    mail = user.email,
+                    gender = user.gender,
+                    registeredDate = user.registered.date,
+                    phone = user.phone,
                 )
             }
         }
@@ -46,6 +54,12 @@ class UserDetailViewModel
 
 data class UserDetailUiState(
     val toolbarTitle: String = "",
+    val userImage: String = "",
+    val name: String = "",
+    val mail: String = "",
+    val gender: Gender? = null,
+    val registeredDate: ZonedDateTime? = null,
+    val phone: String = "",
 )
 
 sealed interface UserDetailUiEvent

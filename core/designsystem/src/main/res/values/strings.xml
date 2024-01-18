@@ -2,4 +2,13 @@
     <string name="app_name">Random User</string>
 
     <string name="contacts">Contactos</string>
+    
+    <string name="name_and_surname">Nombre y apellidos</string>
+    <string name="mail">Email</string>
+    <string name="gender">Email</string>
+    <string name="gender_male">Hombre</string>
+    <string name="gender_female">Mujer</string>
+    <string name="registered_date">Fecha de registro</string>
+    <string name="phone">Teléfono</string>
+    <string name="address">Dirección</string>
 </resources>

@@ -5,7 +5,7 @@ import java.time.ZonedDateTime
 object Mocks {
     val user =
         UserDO(
-            gender = "male",
+            gender = Gender.Male,
             name =
                 NameDO(
                     title = "Mr",

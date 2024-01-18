@@ -1,5 +1,6 @@
 package com.javichaques.core.network.model.dto
 
+import com.javichaques.core.model.Gender
 import com.javichaques.core.model.UserDO
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -21,7 +22,7 @@ data class UserDTO(
 ) {
     fun toDomain() =
         UserDO(
-            gender = gender,
+            gender = Gender.fromValue(gender),
             name = name.toDomain(),
             location = location.toDomain(),
             email = email,
