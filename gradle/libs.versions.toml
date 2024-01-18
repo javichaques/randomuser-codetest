@@ -41,7 +41,7 @@ retrofit-serialization = "1.0.0"
 arrow = "1.2.1"
 timber = "5.0.1"
 coil = "2.5.0"
-accompanist = "0.33.2-alpha"
+lottie = "6.3.0"
 leakcanary = "2.13"
 maps = "4.3.0"
 
@@ -129,14 +129,14 @@ destinations-core = { module = "io.github.raamcosta.compose-destinations:core", 
 destinations-ksp = { module = "io.github.raamcosta.compose-destinations:ksp", version.ref = "compose-destinations" }
 destinations-animations = { module = "io.github.raamcosta.compose-destinations:animations-core", version.ref = "compose-destinations" }
 
-# Accompanist
-accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
-
 # Leak canary
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 
 # Maps
 maps = { module = "com.google.maps.android:maps-compose", version.ref = "maps" }
+
+# Lottie
+lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
 # JUnit
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }

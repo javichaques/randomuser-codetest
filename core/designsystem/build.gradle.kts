@@ -40,5 +40,7 @@ dependencies {
     debugApi(libs.compose.ui.tooling.core)
     api(libs.compose.ui.tooling.preview)
 
+    implementation(libs.lottie)
+
     implementation(libs.timber)
 }

@@ -51,8 +51,6 @@ dependencies {
     api(libs.androidx.paging.compose)
     api(libs.androidx.lifecycle.runtimeCompose)
 
-    api(libs.accompanist.swiperefresh)
-
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
