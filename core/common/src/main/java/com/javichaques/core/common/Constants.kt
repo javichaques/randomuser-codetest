@@ -5,5 +5,5 @@ object Constants {
 
     const val HEADER_ACCEPT_LANGUAGE = "Accept-Language"
 
-    const val DEFAULT_PAGE_SIZE = 10
+    const val DEFAULT_PAGE_SIZE = 30
 }

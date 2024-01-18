@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.google.firebase.appdistribution.gradle.firebaseAppDistribution
 
 plugins {
     alias(libs.plugins.android.application)
@@ -9,7 +10,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-//    alias(libs.plugins.firebase.appdistribution)
+    alias(libs.plugins.firebase.appdistribution)
 }
 
 android {
@@ -80,10 +81,22 @@ android {
             dimension = "environment"
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
+
+            firebaseAppDistribution {
+                appId = BuildConstants.Development.Firebase.APP_ID
+                serviceCredentialsFile = "$rootDir/credentials/sa_app_distribution.json"
+                artifactType = "APK"
+            }
         }
 
         create("production") {
             dimension = "environment"
+
+            firebaseAppDistribution {
+                appId = BuildConstants.Production.Firebase.APP_ID
+                serviceCredentialsFile = "$rootDir/credentials/sa_app_distribution.json"
+                artifactType = "APK"
+            }
         }
     }
 

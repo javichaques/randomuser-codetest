@@ -45,7 +45,7 @@ fun RUSearchBar(
             TextStyle(
                 fontFamily = SfProText,
                 fontWeight = FontWeight.Normal,
-                fontSize = 18.sp,
+                fontSize = 16.sp,
             ),
         colors =
             TextFieldDefaults.colors(
@@ -68,7 +68,7 @@ fun RUSearchBar(
                         text = placeholder,
                         fontFamily = SfProText,
                         fontWeight = FontWeight.Normal,
-                        fontSize = 18.sp,
+                        fontSize = 16.sp,
                         color = RUColor.Grey.Medium,
                     )
                 }

@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -149,6 +150,11 @@ internal fun UsersListScreenContent(
             },
             onError = {
                 // TODO To be implemented
+            },
+            onEmpty = {
+                item {
+                    EmptyView()
+                }
             },
         ) {
             items(
@@ -299,6 +305,22 @@ internal fun GenderSelector(
     }
 }
 
+@Composable
+internal fun EmptyView() {
+    Text(
+        text = stringResource(id = R.string.no_results),
+        color = RUColor.Grey.Dim,
+        fontFamily = SfProText,
+        fontWeight = FontWeight.Normal,
+        lineHeight = 18.sp,
+        textAlign = TextAlign.Center,
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(32.dp),
+    )
+}
+
 @DevicePreviews
 @Composable
 internal fun UsersListScreenContentPreview() {
@@ -322,5 +344,13 @@ internal fun GenderSelectorPreview() {
         GenderSelector(
             selectedGender = null,
         )
+    }
+}
+
+@DevicePreviews
+@Composable
+internal fun EmptyViewPreview() {
+    RUTheme {
+        EmptyView()
     }
 }

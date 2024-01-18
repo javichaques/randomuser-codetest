@@ -16,21 +16,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import com.javichaques.core.designsystem.theme.RUColor
 import com.javichaques.randomuser.navigation.RootNavGraph
 import com.javichaques.randomuser.ui.utils.currentNavigator
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.navigation.dependency
-import com.ramcosta.composedestinations.utils.currentDestinationAsState
 
 @Composable
 fun RUApp(appState: RUAppState = rememberRUAppState()) {
-    val currentDestination by appState.navController.currentDestinationAsState()
-    val context = LocalContext.current
-
     Scaffold(
         modifier = Modifier.fillMaxSize().imePadding(),
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
