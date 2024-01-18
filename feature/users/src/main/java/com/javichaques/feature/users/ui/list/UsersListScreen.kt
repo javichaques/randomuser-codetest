@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -126,7 +128,7 @@ internal fun UsersListScreenContent(
     state: UsersListUiState,
     onUserClick: (user: UserDO) -> Unit = {},
 ) {
-    val users: LazyPagingItems<UserDO> = state.filteredUsers.collectAsLazyPagingItems()
+    val users: LazyPagingItems<UserDO> = state.users.collectAsLazyPagingItems()
     val listState = rememberLazyListState()
 
     LazyColumn(
@@ -236,37 +238,63 @@ internal fun GenderSelector(
     selectedGender: Gender?,
     onGenderSelected: (gender: Gender?) -> Unit = {},
 ) {
+    val textStyle =
+        TextStyle(
+            color = RUColor.Primary.Black,
+            fontFamily = SfProText,
+            fontWeight = FontWeight.SemiBold,
+            lineHeight = 18.sp,
+        )
+
+    val colors =
+        SegmentedButtonDefaults.colors(
+            inactiveContainerColor = RUColor.Primary.White,
+            activeContainerColor = RUColor.Grey.Light,
+        )
+
     SingleChoiceSegmentedButtonRow {
         SegmentedButton(
             selected = selectedGender == null,
             onClick = { onGenderSelected(null) },
+            colors = colors,
             shape =
                 RoundedCornerShape(
                     topStart = 24.dp,
                     bottomStart = 24.dp,
                 ),
         ) {
-            Text(text = stringResource(id = R.string.all))
+            Text(
+                text = stringResource(id = R.string.all),
+                style = textStyle,
+            )
         }
 
         SegmentedButton(
             selected = selectedGender == Gender.Male,
             onClick = { onGenderSelected(Gender.Male) },
+            colors = colors,
             shape = RoundedCornerShape(0.dp),
         ) {
-            Text(text = stringResource(id = R.string.gender_male))
+            Text(
+                text = stringResource(id = R.string.gender_male),
+                style = textStyle,
+            )
         }
 
         SegmentedButton(
             selected = selectedGender == Gender.Female,
             onClick = { onGenderSelected(Gender.Female) },
+            colors = colors,
             shape =
                 RoundedCornerShape(
                     topEnd = 24.dp,
                     bottomEnd = 24.dp,
                 ),
         ) {
-            Text(text = stringResource(id = R.string.gender_female))
+            Text(
+                text = stringResource(id = R.string.gender_female),
+                style = textStyle,
+            )
         }
     }
 }

@@ -3,6 +3,7 @@ package com.javichaques.feature.users.ui.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.javichaques.core.domain.usecase.users.GetUsersUseCase
 import com.javichaques.core.model.Gender
@@ -15,8 +16,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,6 +34,8 @@ class UsersListViewModel
         private val _uiEvent = MutableSharedFlow<UsersListUiEvent>()
         val uiEvent = _uiEvent.asSharedFlow()
 
+        private val queryFlow = MutableStateFlow("")
+
         init {
             getUsers()
         }
@@ -40,13 +43,19 @@ class UsersListViewModel
         private fun getUsers() =
             viewModelScope.launch {
                 _uiState.update {
+                    val users =
+                        getUsersUseCase(it.selectedGender)
+                            .cachedIn(viewModelScope)
+                            .combine(queryFlow) { pagingData, query ->
+                                pagingData.filter { user ->
+                                    user.email.contains(query)
+                                }
+                            }
+
                     it.copy(
-                        users = getUsersUseCase(it.selectedGender),
-                        filteredUsers = emptyFlow(),
+                        users = users,
                     )
                 }
-
-                filter()
             }
 
         fun onUserClick(user: UserDO) =
@@ -68,23 +77,7 @@ class UsersListViewModel
                     query = value,
                 )
             }
-
-            filter()
-        }
-
-        private fun filter() {
-            _uiState.update {
-                val filteredUsers =
-                    it.users.mapLatest { pagingData ->
-                        pagingData.filter { user ->
-                            user.email.contains(it.query)
-                        }
-                    }
-
-                it.copy(
-                    filteredUsers = filteredUsers,
-                )
-            }
+            queryFlow.update { value }
         }
 
         fun filterUsersByGender(gender: Gender?) {
@@ -98,13 +91,7 @@ class UsersListViewModel
         }
 
         fun clearQuery() {
-            _uiState.update {
-                it.copy(
-                    query = "",
-                )
-            }
-
-            filter()
+            filterUsersByEmail("")
         }
     }
 
@@ -112,7 +99,6 @@ data class UsersListUiState(
     val error: RUError? = null,
     val query: String = "",
     val users: Flow<PagingData<UserDO>> = emptyFlow(),
-    val filteredUsers: Flow<PagingData<UserDO>> = emptyFlow(),
     val selectedGender: Gender? = null,
 )
 
