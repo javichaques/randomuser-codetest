@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.javichaques.core.domain.usecase.users.GetUsersUseCase
 import com.javichaques.core.model.UserDO
 import com.javichaques.core.model.errors.RUError
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,8 +40,11 @@ class UsersListViewModel
         fun refresh() =
             viewModelScope.launch {
                 _uiState.update {
+                    val users = getUsers()
                     it.copy(
-                        users = getUsers(),
+                        query = "",
+                        users = users,
+                        filteredUsers = users,
                     )
                 }
             }
@@ -61,11 +66,36 @@ class UsersListViewModel
         fun onMoreOptionsClick() {
             // TODO To be implemented
         }
+
+        fun filterUser(value: String) {
+            _uiState.update {
+                it.copy(
+                    query = value,
+                    filteredUsers =
+                        it.users.map { pagingData ->
+                            pagingData.filter { user ->
+                                user.email.contains(value)
+                            }
+                        },
+                )
+            }
+        }
+
+        fun clearQuery() {
+            _uiState.update {
+                it.copy(
+                    query = "",
+                    filteredUsers = it.users,
+                )
+            }
+        }
     }
 
 data class UsersListUiState(
     val error: RUError? = null,
+    val query: String = "",
     val users: Flow<PagingData<UserDO>> = emptyFlow(),
+    val filteredUsers: Flow<PagingData<UserDO>> = emptyFlow(),
 )
 
 sealed interface UsersListUiEvent {

@@ -40,6 +40,7 @@ import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.javichaques.core.designsystem.R
 import com.javichaques.core.designsystem.component.RULoader
+import com.javichaques.core.designsystem.component.RUSearchBar
 import com.javichaques.core.designsystem.component.RUTopAppBar
 import com.javichaques.core.designsystem.theme.RUColor
 import com.javichaques.core.designsystem.theme.RUTheme
@@ -93,6 +94,18 @@ internal fun UsersListScreen(navigator: UsersNavigator) {
             },
         )
 
+        RUSearchBar(
+            query = state.query,
+            placeholder = stringResource(id = R.string.filter_email),
+            onQueryChange = viewModel::filterUser,
+            onClearButtonClick = viewModel::clearQuery,
+            modifier =
+                Modifier.padding(
+                    horizontal = 16.dp,
+                    vertical = 8.dp,
+                ),
+        )
+
         UsersListScreenContent(
             state = state,
             onUserClick = viewModel::onUserClick,
@@ -105,7 +118,7 @@ internal fun UsersListScreenContent(
     state: UsersListUiState,
     onUserClick: (user: UserDO) -> Unit = {},
 ) {
-    val users: LazyPagingItems<UserDO> = state.users.collectAsLazyPagingItems()
+    val users: LazyPagingItems<UserDO> = state.filteredUsers.collectAsLazyPagingItems()
     val listState = rememberLazyListState()
 
     LazyColumn(

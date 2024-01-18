@@ -2,6 +2,7 @@ package com.javichaques.core.designsystem.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,7 +21,12 @@ import com.javichaques.core.designsystem.util.DevicePreviews
 fun RULoader(modifier: Modifier = Modifier) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_loader))
 
-    Box(modifier = modifier.fillMaxWidth()) {
+    Box(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+    ) {
         LottieAnimation(
             modifier =
                 Modifier

@@ -106,7 +106,7 @@ internal class TopBarProvider : PreviewParameterProvider<BackgroundType> {
 
 @DevicePreviews
 @Composable
-fun TrexxTopAppBarPreview(
+fun RUTopAppBarPreview(
     @PreviewParameter(TopBarProvider::class) data: BackgroundType,
 ) {
     RUTheme {

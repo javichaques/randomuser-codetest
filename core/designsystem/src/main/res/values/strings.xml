@@ -11,4 +11,6 @@
     <string name="registered_date">Fecha de registro</string>
     <string name="phone">Teléfono</string>
     <string name="address">Dirección</string>
+
+    <string name="filter_email">Correo electrónico</string>
 </resources>
