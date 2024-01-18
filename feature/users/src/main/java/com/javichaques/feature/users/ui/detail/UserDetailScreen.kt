@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -85,7 +87,7 @@ internal fun UserDetailScreenContent(
     onMoreOptionsClick: () -> Unit = {},
 ) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (background, toolbar, image, data) = createRefs()
+        val (background, toolbar, image, data, actions) = createRefs()
 
         Image(
             painter = painterResource(id = R.drawable.img_user_background),
@@ -128,13 +130,23 @@ internal fun UserDetailScreenContent(
                 },
         )
 
+        UserActions(
+            modifier =
+                Modifier.constrainAs(actions) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(background.bottom)
+                    width = Dimension.fillToConstraints
+                },
+        )
+
         UserDetailData(
             state = state,
             modifier =
                 Modifier.constrainAs(data) {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                    top.linkTo(background.bottom)
+                    top.linkTo(actions.bottom)
                     bottom.linkTo(parent.bottom)
                     height = Dimension.fillToConstraints
                 },
@@ -165,7 +177,12 @@ internal fun UserDetailData(
     state: UserDetailUiState,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier =
+            modifier.verticalScroll(
+                rememberScrollState(),
+            ),
+    ) {
         if (state.name.isNotBlank()) {
             DetailItem(
                 title = stringResource(id = R.string.name_and_surname),
@@ -285,6 +302,33 @@ internal fun DetailItem(
     }
 }
 
+@Composable
+internal fun UserActions(
+    modifier: Modifier = Modifier,
+    onCameraClick: () -> Unit = {},
+    onEditClick: () -> Unit = {},
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End,
+        modifier = modifier,
+    ) {
+        IconButton(onClick = onCameraClick) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_camera),
+                contentDescription = null,
+            )
+        }
+
+        IconButton(onClick = onEditClick) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_edit),
+                contentDescription = null,
+            )
+        }
+    }
+}
+
 @DevicePreviews
 @Composable
 internal fun UserDetailScreenContentPreview() {
@@ -312,5 +356,13 @@ internal fun DetailItemPreview() {
             body = "Javi Chaqués",
             icon = painterResource(id = R.drawable.ic_user),
         )
+    }
+}
+
+@DevicePreviews
+@Composable
+internal fun UserActionsPreview() {
+    RUTheme {
+        UserActions()
     }
 }
