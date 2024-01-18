@@ -8,6 +8,7 @@ import com.javichaques.core.common.Constants
 import com.javichaques.core.common.Dispatcher
 import com.javichaques.core.common.RUDispatchers
 import com.javichaques.core.data.repository.users.UsersRepository
+import com.javichaques.core.model.Gender
 import com.javichaques.core.model.UserDO
 import com.javichaques.core.model.pagination.PageKey
 import com.javichaques.core.model.pagination.PaginationData
@@ -24,7 +25,7 @@ class GetUsersUseCase
         @Dispatcher(RUDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
         private val usersRepository: UsersRepository,
     ) {
-        suspend operator fun invoke() =
+        suspend operator fun invoke(gender: Gender?) =
             withContext(ioDispatcher) {
                 return@withContext Pager(
                     PagingConfig(
@@ -44,6 +45,7 @@ class GetUsersUseCase
 
                                 val result =
                                     usersRepository.getUsers(
+                                        gender = gender?.value,
                                         pagination = pagination,
                                     )
 

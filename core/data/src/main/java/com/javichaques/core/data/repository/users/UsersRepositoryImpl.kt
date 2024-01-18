@@ -15,8 +15,12 @@ class UsersRepositoryImpl
     constructor(
         private val dataSource: UsersDataSource,
     ) : UsersRepository {
-        override suspend fun getUsers(pagination: PaginationData): Either<RUError, PagedList<UserDO>> {
+        override suspend fun getUsers(
+            gender: String?,
+            pagination: PaginationData,
+        ): Either<RUError, PagedList<UserDO>> {
             return dataSource.getUsers(
+                gender = gender,
                 pagination = pagination,
             ).map {
                 it.toDomain().map { user ->

@@ -7,5 +7,8 @@ import com.javichaques.core.network.model.dto.UserDTO
 import com.javichaques.core.network.model.responses.PagedResponse
 
 interface UsersDataSource {
-    suspend fun getUsers(pagination: PaginationData): Either<RUError, PagedResponse<UserDTO>>
+    suspend fun getUsers(
+        gender: String?,
+        pagination: PaginationData,
+    ): Either<RUError, PagedResponse<UserDTO>>
 }

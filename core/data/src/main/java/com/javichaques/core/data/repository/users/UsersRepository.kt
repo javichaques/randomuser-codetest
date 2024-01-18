@@ -7,5 +7,8 @@ import com.javichaques.core.model.pagination.PagedList
 import com.javichaques.core.model.pagination.PaginationData
 
 interface UsersRepository {
-    suspend fun getUsers(pagination: PaginationData): Either<RUError, PagedList<UserDO>>
+    suspend fun getUsers(
+        gender: String?,
+        pagination: PaginationData,
+    ): Either<RUError, PagedList<UserDO>>
 }

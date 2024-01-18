@@ -19,6 +19,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,6 +48,7 @@ import com.javichaques.core.designsystem.theme.RUColor
 import com.javichaques.core.designsystem.theme.RUTheme
 import com.javichaques.core.designsystem.theme.SfProText
 import com.javichaques.core.designsystem.util.DevicePreviews
+import com.javichaques.core.model.Gender
 import com.javichaques.core.model.Mocks
 import com.javichaques.core.model.UserDO
 import com.javichaques.core.ui.paging.pagingList
@@ -97,13 +100,18 @@ internal fun UsersListScreen(navigator: UsersNavigator) {
         RUSearchBar(
             query = state.query,
             placeholder = stringResource(id = R.string.filter_email),
-            onQueryChange = viewModel::filterUser,
+            onQueryChange = viewModel::filterUsersByEmail,
             onClearButtonClick = viewModel::clearQuery,
             modifier =
                 Modifier.padding(
                     horizontal = 16.dp,
                     vertical = 8.dp,
                 ),
+        )
+
+        GenderSelector(
+            selectedGender = state.selectedGender,
+            onGenderSelected = viewModel::filterUsersByGender,
         )
 
         UsersListScreenContent(
@@ -222,6 +230,47 @@ internal fun UserItem(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun GenderSelector(
+    selectedGender: Gender?,
+    onGenderSelected: (gender: Gender?) -> Unit = {},
+) {
+    SingleChoiceSegmentedButtonRow {
+        SegmentedButton(
+            selected = selectedGender == null,
+            onClick = { onGenderSelected(null) },
+            shape =
+                RoundedCornerShape(
+                    topStart = 24.dp,
+                    bottomStart = 24.dp,
+                ),
+        ) {
+            Text(text = stringResource(id = R.string.all))
+        }
+
+        SegmentedButton(
+            selected = selectedGender == Gender.Male,
+            onClick = { onGenderSelected(Gender.Male) },
+            shape = RoundedCornerShape(0.dp),
+        ) {
+            Text(text = stringResource(id = R.string.gender_male))
+        }
+
+        SegmentedButton(
+            selected = selectedGender == Gender.Female,
+            onClick = { onGenderSelected(Gender.Female) },
+            shape =
+                RoundedCornerShape(
+                    topEnd = 24.dp,
+                    bottomEnd = 24.dp,
+                ),
+        ) {
+            Text(text = stringResource(id = R.string.gender_female))
+        }
+    }
+}
+
 @DevicePreviews
 @Composable
 internal fun UsersListScreenContentPreview() {
@@ -235,5 +284,15 @@ internal fun UsersListScreenContentPreview() {
 internal fun UserItemPreview() {
     RUTheme {
         UserItem(user = Mocks.user)
+    }
+}
+
+@DevicePreviews
+@Composable
+internal fun GenderSelectorPreview() {
+    RUTheme {
+        GenderSelector(
+            selectedGender = null,
+        )
     }
 }

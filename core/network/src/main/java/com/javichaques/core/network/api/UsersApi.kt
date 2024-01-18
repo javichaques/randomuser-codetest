@@ -11,6 +11,7 @@ interface UsersApi {
     @GET("?format=json")
     suspend fun getUsers(
         @Query("seed") seed: String?,
+        @Query("gender") gender: String?,
         @Query("page") page: Int?,
         @Query("results") results: Int?,
     ): Either<CallError, PagedResponse<UserDTO>>
