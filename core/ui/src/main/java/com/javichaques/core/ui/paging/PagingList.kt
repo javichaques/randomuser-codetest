@@ -3,7 +3,7 @@ package com.javichaques.core.ui.paging
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 
-fun <T> pagingList(
+fun pagingList(
     items: LazyPagingItems<*>,
     onRefresh: () -> Unit = {},
     onEmpty: () -> Unit = {},

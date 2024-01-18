@@ -29,6 +29,7 @@ class GetUsersUseCase
                 return@withContext Pager(
                     PagingConfig(
                         pageSize = Constants.DEFAULT_PAGE_SIZE,
+                        initialLoadSize = Constants.DEFAULT_PAGE_SIZE,
                     ),
                 ) {
                     object : PagingSource<PageKey, UserDO>() {
@@ -51,8 +52,8 @@ class GetUsersUseCase
                                 }, {
                                     LoadResult.Page(
                                         data = it.items,
-                                        prevKey = it.getNextKey(),
-                                        nextKey = it.getPreviousKey(),
+                                        prevKey = it.getPreviousKey(it.seed),
+                                        nextKey = it.getNextKey(it.seed),
                                     )
                                 })
                             } catch (e: Exception) {

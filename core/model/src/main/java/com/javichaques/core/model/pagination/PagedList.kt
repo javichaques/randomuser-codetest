@@ -18,13 +18,13 @@ data class PagedList<T>(
         )
     }
 
-    fun getNextKey() =
+    fun getNextKey(seed: String) =
         PageKey(
             page = page + 1,
             seed = seed,
         )
 
-    fun getPreviousKey(): PageKey? {
+    fun getPreviousKey(seed: String): PageKey? {
         return if (page > 1) {
             PageKey(
                 page = page - 1,

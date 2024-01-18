@@ -39,6 +39,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.javichaques.core.designsystem.R
+import com.javichaques.core.designsystem.component.RULoader
 import com.javichaques.core.designsystem.component.RUTopAppBar
 import com.javichaques.core.designsystem.theme.RUColor
 import com.javichaques.core.designsystem.theme.RUTheme
@@ -46,6 +47,7 @@ import com.javichaques.core.designsystem.theme.SfProText
 import com.javichaques.core.designsystem.util.DevicePreviews
 import com.javichaques.core.model.Mocks
 import com.javichaques.core.model.UserDO
+import com.javichaques.core.ui.paging.pagingList
 import com.javichaques.core.ui.scaffold.RUScaffold
 import com.javichaques.feature.users.navigation.UsersNavGraph
 import com.javichaques.feature.users.navigation.UsersNavigator
@@ -110,24 +112,41 @@ internal fun UsersListScreenContent(
         state = listState,
         modifier = Modifier.fillMaxSize(),
     ) {
-        items(
-            count = users.itemCount,
-            key = users.itemKey { it.email },
+        pagingList(
+            items = users,
+            onRefresh = {
+                item {
+                    RULoader()
+                }
+            },
+            onLoading = {
+                item {
+                    RULoader()
+                }
+            },
+            onError = {
+                // TODO To be implemented
+            },
         ) {
-            users[it]?.let { user ->
-                UserItem(
-                    user = user,
-                    onUserClick = onUserClick,
-                )
+            items(
+                count = users.itemCount,
+                key = users.itemKey { it.email },
+            ) {
+                users[it]?.let { user ->
+                    UserItem(
+                        user = user,
+                        onUserClick = onUserClick,
+                    )
 
-                HorizontalDivider(
-                    color = RUColor.Grey.Light,
-                    thickness = 1.dp,
-                    modifier =
-                        Modifier.padding(
-                            start = 84.dp,
-                        ),
-                )
+                    HorizontalDivider(
+                        color = RUColor.Grey.Light,
+                        thickness = 1.dp,
+                        modifier =
+                            Modifier.padding(
+                                start = 84.dp,
+                            ),
+                    )
+                }
             }
         }
     }
