@@ -110,8 +110,8 @@ internal fun UsersListScreen(navigator: UsersNavigator) {
 
         RUSearchBar(
             query = state.query,
-            placeholder = stringResource(id = R.string.filter_email),
-            onQueryChange = viewModel::filterUsersByEmail,
+            placeholder = stringResource(id = R.string.search_placeholder),
+            onQueryChange = viewModel::filterUsers,
             onClearButtonClick = viewModel::clearQuery,
             modifier =
                 Modifier.padding(

@@ -48,7 +48,14 @@ class UsersListViewModel
                             .cachedIn(viewModelScope)
                             .combine(queryFlow) { pagingData, query ->
                                 pagingData.filter { user ->
-                                    user.email.contains(query)
+                                    user.email.contains(
+                                        other = query,
+                                        ignoreCase = true,
+                                    ) ||
+                                        user.name.getFullName().contains(
+                                            other = query,
+                                            ignoreCase = true,
+                                        )
                                 }
                             }
 
@@ -74,7 +81,7 @@ class UsersListViewModel
                 )
             }
 
-        fun filterUsersByEmail(value: String) {
+        fun filterUsers(value: String) {
             _uiState.update {
                 it.copy(
                     query = value,
@@ -94,7 +101,7 @@ class UsersListViewModel
         }
 
         fun clearQuery() {
-            filterUsersByEmail("")
+            filterUsers("")
         }
 
         fun onRetry(error: RUError) {

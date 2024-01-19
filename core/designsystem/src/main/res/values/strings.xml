@@ -11,7 +11,7 @@
     <string name="phone">Teléfono</string>
     <string name="address">Dirección</string>
     <string name="all">Todos</string>
-    <string name="filter_email">Correo electrónico</string>
+    <string name="search_placeholder">Nombre o correo electrónico</string>
     <string name="no_results">No se han encontrado resultados</string>
     <string name="error_generic_title">Algo ha ido mal</string>
     <string name="error_generic_body">Estamos trabajando para solucionar el problema. Por favor, vuelve a intentarlo.</string>
