@@ -77,6 +77,9 @@ internal fun UsersListScreen(navigator: UsersNavigator) {
         viewModel.uiEvent.collectLatest {
             when (it) {
                 is UsersListUiEvent.NavigateToUserDetail -> navigator.navigateToUserDetail(it.user)
+                UsersListUiEvent.NavigateToMoreOptions -> {
+                    // TODO To be implemented
+                }
             }
         }
     }

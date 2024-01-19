@@ -67,9 +67,12 @@ class UsersListViewModel
                 )
             }
 
-        fun onMoreOptionsClick() {
-            // TODO To be implemented
-        }
+        fun onMoreOptionsClick() =
+            viewModelScope.launch {
+                _uiEvent.emit(
+                    UsersListUiEvent.NavigateToMoreOptions,
+                )
+            }
 
         fun filterUsersByEmail(value: String) {
             _uiState.update {
@@ -111,4 +114,6 @@ data class UsersListUiState(
 
 sealed interface UsersListUiEvent {
     data class NavigateToUserDetail(val user: UserDO) : UsersListUiEvent
+
+    data object NavigateToMoreOptions : UsersListUiEvent
 }

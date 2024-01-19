@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,7 +27,10 @@ import com.ramcosta.composedestinations.navigation.dependency
 @Composable
 fun RUApp(appState: RUAppState = rememberRUAppState()) {
     Scaffold(
-        modifier = Modifier.fillMaxSize().imePadding(),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .imePadding(),
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         containerColor = RUColor.Primary.White,
         contentColor = RUColor.Primary.Black,
@@ -35,7 +39,7 @@ fun RUApp(appState: RUAppState = rememberRUAppState()) {
                 hostState = appState.snackBarHostState,
                 modifier = Modifier.navigationBarsPadding(),
             ) {
-                // TODO To be implemented
+                Snackbar(snackbarData = it)
             }
         },
     ) { padding ->

@@ -72,6 +72,4 @@ data class UserDetailUiState(
 
 sealed interface UserDetailUiEvent {
     data object NavigateToMoreOptions : UserDetailUiEvent
-
-    data object Test : UserDetailUiEvent
 }

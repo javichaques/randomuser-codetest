@@ -92,8 +92,6 @@ internal fun UserDetailScreen(navigator: UsersNavigator) {
                 UserDetailUiEvent.NavigateToMoreOptions -> {
                     // TODO To be implemented
                 }
-
-                else -> {}
             }
         }
     }
