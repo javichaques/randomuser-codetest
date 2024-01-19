@@ -1,4 +1,8 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
+    includeBuild("build-logic")
+
     repositories {
         google {
             content {
@@ -20,4 +24,15 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Random User"
+
 include(":app")
+include(":core:common")
+include(":core:data")
+include(":core:designsystem")
+include(":core:domain")
+include(":core:network")
+include(":core:model")
+include(":core:testing")
+include(":core:ui")
+
+include(":feature:users")

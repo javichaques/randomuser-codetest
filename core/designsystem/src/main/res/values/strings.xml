@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Random User</string>
+
+    <string name="contacts">Contactos</string>
+    <string name="name_and_surname">Nombre y apellidos</string>
+    <string name="mail">Email</string>
+    <string name="gender">Email</string>
+    <string name="gender_male">Hombre</string>
+    <string name="gender_female">Mujer</string>
+    <string name="registered_date">Fecha de registro</string>
+    <string name="phone">Teléfono</string>
+    <string name="address">Dirección</string>
+    <string name="all">Todos</string>
+    <string name="search_placeholder">Nombre o correo electrónico</string>
+    <string name="no_results">No se han encontrado resultados</string>
+    <string name="error_generic_title">Algo ha ido mal</string>
+    <string name="error_generic_body">Estamos trabajando para solucionar el problema. Por favor, vuelve a intentarlo.</string>
+    <string name="error_network_title">Se ha perdido la conexión</string>
+    <string name="error_network_body">Por favor, revisa tu conexión a internet y vuelve a intentarlo.</string>
+    <string name="retry">Reintentar</string>
+</resources>
