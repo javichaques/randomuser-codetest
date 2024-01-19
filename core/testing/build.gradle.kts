@@ -39,10 +39,13 @@ dependencies {
 
     implementation(libs.timber)
 
+    api(libs.junit.core)
     api(libs.junit.api)
     runtimeOnly(libs.junit.engine)
     api(libs.junit.params)
 
     api(libs.mockito.core)
     api(libs.mockito.kotlin)
+
+    api(libs.turbine)
 }

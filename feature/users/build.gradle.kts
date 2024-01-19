@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:common"))
     implementation(project(":core:domain"))
+    testImplementation(project(":core:testing"))
 
     implementation(libs.coil.core)
     implementation(libs.coil.compose)

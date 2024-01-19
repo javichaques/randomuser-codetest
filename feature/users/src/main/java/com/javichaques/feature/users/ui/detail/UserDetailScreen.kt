@@ -27,6 +27,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -69,6 +70,7 @@ import com.javichaques.core.ui.utils.toString
 import com.javichaques.feature.users.navigation.UsersNavGraph
 import com.javichaques.feature.users.navigation.UsersNavigator
 import com.ramcosta.composedestinations.annotation.Destination
+import kotlinx.coroutines.flow.collectLatest
 import java.time.ZonedDateTime
 
 data class UserDetailScreenArgs(
@@ -83,6 +85,18 @@ data class UserDetailScreenArgs(
 internal fun UserDetailScreen(navigator: UsersNavigator) {
     val viewModel: UserDetailViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEvent.collectLatest {
+            when (it) {
+                UserDetailUiEvent.NavigateToMoreOptions -> {
+                    // TODO To be implemented
+                }
+
+                else -> {}
+            }
+        }
+    }
 
     UserDetailScreenContent(
         state = state,

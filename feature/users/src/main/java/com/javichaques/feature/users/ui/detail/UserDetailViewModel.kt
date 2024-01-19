@@ -1,7 +1,9 @@
 package com.javichaques.feature.users.ui.detail
 
+import androidx.annotation.OpenForTesting
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.javichaques.core.model.CoordinatesDO
 import com.javichaques.core.model.Gender
 import com.javichaques.core.model.UserDO
@@ -13,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.time.ZonedDateTime
 import javax.inject.Inject
 
@@ -34,7 +37,8 @@ class UserDetailViewModel
             setUser(user)
         }
 
-        private fun setUser(user: UserDO) {
+        @OpenForTesting
+        fun setUser(user: UserDO) {
             _uiState.update {
                 it.copy(
                     toolbarTitle = user.name.getFullName(),
@@ -49,9 +53,10 @@ class UserDetailViewModel
             }
         }
 
-        fun onMoreOptionsClick() {
-            // TODO To be implemented
-        }
+        fun onMoreOptionsClick() =
+            viewModelScope.launch {
+                _uiEvent.emit(UserDetailUiEvent.NavigateToMoreOptions)
+            }
     }
 
 data class UserDetailUiState(
@@ -65,4 +70,8 @@ data class UserDetailUiState(
     val coordinates: CoordinatesDO? = null,
 )
 
-sealed interface UserDetailUiEvent
+sealed interface UserDetailUiEvent {
+    data object NavigateToMoreOptions : UserDetailUiEvent
+
+    data object Test : UserDetailUiEvent
+}
