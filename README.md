@@ -2,8 +2,25 @@
 
 ## Table of contents
 
+- [Features](#features)
 - [Setup](#setup)
 - [License](#license)
+
+## Features
+- **Architecture:** MVVM
+- **Kotlin**: v1.9.22
+- **Jetpack** Compose
+- **Android X:** Start up, splash screen, paging, contraint layout
+- **Code format:** Spotless, Ktlint
+- **Navigation:** Compose destinations
+- **DI:** Hilt
+- **Network:** Retrofit, Okhttp, Coroutines, Arrow
+- **Logging:** Timber
+- **Image loading:** Coil, Lottie
+- **Firebase:** Crashlytics, Analytics, App Distribution
+- **Maps:** Google Maps
+- **Testing:** JUnit5, Mockito,Turbine
+- **Performance:** Leakcanary
 
 ## Setup
 - Use Android Studio Jellyfish
