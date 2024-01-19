@@ -256,6 +256,8 @@ internal fun GenderSelector(
         SegmentedButtonDefaults.colors(
             inactiveContainerColor = RUColor.Primary.White,
             activeContainerColor = RUColor.Grey.Light,
+            activeContentColor = RUColor.Primary.Black,
+            inactiveContentColor = RUColor.Primary.Black,
         )
 
     SingleChoiceSegmentedButtonRow {

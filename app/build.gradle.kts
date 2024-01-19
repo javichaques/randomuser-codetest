@@ -142,6 +142,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.destinations.core)
+    implementation(libs.destinations.animations)
     ksp(libs.destinations.ksp)
 
     implementation(libs.timber)

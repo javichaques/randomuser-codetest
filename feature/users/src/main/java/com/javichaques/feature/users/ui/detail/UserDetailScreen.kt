@@ -3,6 +3,7 @@
 package com.javichaques.feature.users.ui.detail
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -49,7 +50,6 @@ import coil.compose.AsyncImage
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -64,7 +64,6 @@ import com.javichaques.core.model.CoordinatesDO
 import com.javichaques.core.model.Gender
 import com.javichaques.core.model.UserDO
 import com.javichaques.core.ui.maps.MapMarker
-import com.javichaques.core.ui.transitions.DetailTransitions
 import com.javichaques.core.ui.utils.DateTimeFormat
 import com.javichaques.core.ui.utils.toString
 import com.javichaques.feature.users.navigation.UsersNavGraph
@@ -78,7 +77,6 @@ data class UserDetailScreenArgs(
 
 @UsersNavGraph
 @Destination(
-    style = DetailTransitions::class,
     navArgsDelegate = UserDetailScreenArgs::class,
 )
 @Composable
@@ -99,7 +97,14 @@ internal fun UserDetailScreenContent(
     onNavigateUp: () -> Unit = {},
     onMoreOptionsClick: () -> Unit = {},
 ) {
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+    ConstraintLayout(
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(
+                    RUColor.Primary.White,
+                ),
+    ) {
         val (background, toolbar, image, data, actions) = createRefs()
 
         Image(
@@ -389,7 +394,7 @@ internal fun UserLocation(
                 ),
             )
         }
-        MapProperties()
+
         val location = LatLng(coordinates.latitude, coordinates.longitude)
         val cameraPositionState =
             rememberCameraPositionState {

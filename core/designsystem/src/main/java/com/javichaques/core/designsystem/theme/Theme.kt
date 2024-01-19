@@ -2,7 +2,6 @@ package com.javichaques.core.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
@@ -13,12 +12,7 @@ private val lightColorScheme =
         tertiary = RUColor.Grey.Medium,
     )
 
-private val darkColorScheme =
-    darkColorScheme(
-        primary = RUColor.Primary.Black,
-        secondary = RUColor.Primary.White,
-        tertiary = RUColor.Grey.Light,
-    )
+// TODO Dark theme
 
 @Composable
 fun RUTheme(
@@ -27,7 +21,7 @@ fun RUTheme(
 ) {
     val colorScheme =
         when {
-            darkTheme -> darkColorScheme
+            darkTheme -> lightColorScheme
             else -> lightColorScheme
         }
 
