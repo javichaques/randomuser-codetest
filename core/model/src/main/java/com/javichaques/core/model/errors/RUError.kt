@@ -14,3 +14,9 @@ sealed class RUError(
 
     class UnexpectedCallError(cause: Throwable = Error()) : RUError(cause = cause)
 }
+
+fun Throwable.toRUError(): RUError {
+    return RUError.UnexpectedCallError(
+        cause = this,
+    )
+}

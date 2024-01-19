@@ -93,6 +93,13 @@ class UsersListViewModel
         fun clearQuery() {
             filterUsersByEmail("")
         }
+
+        fun onRetry(error: RUError) {
+            _uiState.update {
+                it.copy(error = null)
+            }
+            getUsers()
+        }
     }
 
 data class UsersListUiState(

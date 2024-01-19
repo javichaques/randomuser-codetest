@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
@@ -54,6 +55,9 @@ import com.javichaques.core.designsystem.util.DevicePreviews
 import com.javichaques.core.model.Gender
 import com.javichaques.core.model.Mocks
 import com.javichaques.core.model.UserDO
+import com.javichaques.core.model.errors.RUError
+import com.javichaques.core.model.errors.toRUError
+import com.javichaques.core.ui.error.ErrorScreen
 import com.javichaques.core.ui.paging.pagingList
 import com.javichaques.core.ui.scaffold.RUScaffold
 import com.javichaques.feature.users.navigation.UsersNavGraph
@@ -79,6 +83,7 @@ internal fun UsersListScreen(navigator: UsersNavigator) {
 
     RUScaffold(
         error = state.error,
+        onRetry = viewModel::onRetry,
     ) {
         RUTopAppBar(
             title = stringResource(id = R.string.contacts),
@@ -120,6 +125,7 @@ internal fun UsersListScreen(navigator: UsersNavigator) {
         UsersListScreenContent(
             state = state,
             onUserClick = viewModel::onUserClick,
+            onRetry = viewModel::onRetry,
         )
     }
 }
@@ -128,11 +134,16 @@ internal fun UsersListScreen(navigator: UsersNavigator) {
 internal fun UsersListScreenContent(
     state: UsersListUiState,
     onUserClick: (user: UserDO) -> Unit = {},
+    onRetry: (error: RUError) -> Unit = {},
 ) {
     val users: LazyPagingItems<UserDO> = state.users.collectAsLazyPagingItems()
     val listState = rememberLazyListState()
 
+    val isError = users.loadState.refresh is LoadState.Error
+    val arrangement = if (isError) Arrangement.Center else Arrangement.Top
+
     LazyColumn(
+        verticalArrangement = arrangement,
         state = listState,
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -149,7 +160,12 @@ internal fun UsersListScreenContent(
                 }
             },
             onError = {
-                // TODO To be implemented
+                item {
+                    ErrorScreen(
+                        error = it.toRUError(),
+                        onRetry = onRetry,
+                    )
+                }
             },
             onEmpty = {
                 item {

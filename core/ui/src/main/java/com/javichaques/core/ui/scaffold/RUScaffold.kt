@@ -15,6 +15,7 @@ import com.javichaques.core.designsystem.component.RULoader
 import com.javichaques.core.designsystem.theme.RUTheme
 import com.javichaques.core.designsystem.util.DevicePreviews
 import com.javichaques.core.model.errors.RUError
+import com.javichaques.core.ui.error.ErrorScreen
 
 @Composable
 fun RUScaffold(
@@ -34,12 +35,10 @@ fun RUScaffold(
     ) {
         when {
             error != null -> {
-                // TODO To be implemented
-                Text(text = "ERROR")
-//                ErrorScreen(
-//                    error = error,
-//                    onRetry = { onRetry(error) },
-//                )
+                ErrorScreen(
+                    error = error,
+                    onRetry = { onRetry(error) },
+                )
             }
 
             isLoading -> {
