@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Features](#features)
+- [Download](#download)
 - [Setup](#setup)
 - [License](#license)
 
@@ -21,6 +22,9 @@
 - **Maps:** Google Maps
 - **Testing:** JUnit5, Mockito,Turbine
 - **Performance:** Leakcanary
+
+## Download
+- You can download the app from this [link](https://appdistribution.firebase.dev/i/9905ab3d4f5a16ac)
 
 ## Setup
 - Use Android Studio Jellyfish
