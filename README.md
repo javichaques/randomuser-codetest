@@ -31,7 +31,7 @@
 - Add keystore file to ```credentials/keystore.jks```
 - Add Firebase App Distribution service account json file to ```credentials/sa_app_distribution.json```
 - Add Google Services json file to ```app/google-services.json```
-- Add this poperties on local.properties
+- Add this properties on local.properties
 ```
 # Keystore password
 keystore.password=
